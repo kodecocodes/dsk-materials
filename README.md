@@ -9,5 +9,5 @@ Each edition has its own branch, named `editions/[EDITION]`. The default branch 
 
 | Branch                                                                           | Edition | Release Date |
 | -------------------------------------------------------------------------------- |:-------:|:------------:|
+| [editions/2.0](https://github.com/raywenderlich/dsk-materials/tree/editions/2.0) | 2.0     | YYYY-MM-DD   |
 | [editions/1.0](https://github.com/raywenderlich/dsk-materials/tree/editions/1.0) | 1.0     | 2019-09-18   |
-
