@@ -1,7 +1,7 @@
-# Data Structures and Algorithms in Kotlin: Materials
+# Data Structures & Algorithms in Kotlin: Materials
 
 
-This repo contains all the downloadable materials and projects associated with the **[Data Structures and Algorithms in Kotlin](https://store.raywenderlich.com/products/data-structures-and-algorithms-in-kotlin)** from [raywenderlich.com](https://www.raywenderlich.com).
+This repo contains all the downloadable materials and projects associated with the **[Data Structures & Algorithms in Kotlin](https://www.raywenderlich.com/books/data-structures-algorithms-in-kotlin)** from [raywenderlich.com](https://www.raywenderlich.com).
 
 Each edition has its own branch, named `editions/[EDITION]`. The default branch for this repo is for the most recent edition.
 
