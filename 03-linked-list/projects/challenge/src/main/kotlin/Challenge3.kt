@@ -35,7 +35,7 @@
  Create a function that reverses a linked list
  */
 
-fun <T> LinkedList<T>.reversed(): LinkedList<T> {
+fun <T : Any> LinkedList<T>.reversed(): LinkedList<T> {
   val result = LinkedList<T>()
   val head = this.nodeAt(0)
   if (head != null) {
@@ -44,7 +44,7 @@ fun <T> LinkedList<T>.reversed(): LinkedList<T> {
   return result
 }
 
-private fun <T> addInReverse(list: LinkedList<T>, node: Node<T>) {
+private fun <T : Any> addInReverse(list: LinkedList<T>, node: Node<T>) {
   val next = node.next
   if (next != null) {
     addInReverse(list, next)
