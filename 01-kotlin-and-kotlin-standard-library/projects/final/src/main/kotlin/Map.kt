@@ -36,7 +36,7 @@ fun sideEffectList(names: MutableList<String>) {
     names.add("Joker")
 }
 
-fun mutableVsImmutable() {
+fun mutableVsReadOnly() {
     val people = mutableListOf("Brian", "Stanley", "Ringo")
     noSideEffectList(people) // [Brian, Stanley, Ringo]
     sideEffectList(people)   // Adds a Joker to the list

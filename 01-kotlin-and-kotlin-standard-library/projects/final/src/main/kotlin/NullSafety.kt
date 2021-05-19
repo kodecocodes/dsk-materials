@@ -41,7 +41,7 @@ fun main() {
 
     car?.drive()
 
-    val immutableCar: Car = car ?: Car("Porche")
+    val realCar: Car = car ?: Car("Porsche")
 
     car!!.drive()
 }
