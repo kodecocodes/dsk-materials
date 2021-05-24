@@ -30,16 +30,11 @@
 
 package linkedlist
 
-class LinkedListIterator<T>(
+class LinkedListIterator<T : Any>(
   private val list: LinkedList<T>
 ) : Iterator<T>, MutableIterator<T> {
-
   private var index = 0
   private var lastNode: Node<T>? = null
-
-  override fun hasNext(): Boolean {
-    return index < list.size
-  }
 
   override fun next(): T {
     // 1
@@ -53,6 +48,10 @@ class LinkedListIterator<T>(
     // 3
     index++
     return lastNode!!.value
+  }
+
+  override fun hasNext(): Boolean {
+    return index < list.size
   }
 
   override fun remove() {
