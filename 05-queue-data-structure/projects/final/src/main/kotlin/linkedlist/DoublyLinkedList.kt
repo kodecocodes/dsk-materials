@@ -30,7 +30,7 @@
 
 package linkedlist
 
-class DoublyLinkedList<T> {
+class DoublyLinkedList<T : Any> {
 
   fun isEmpty(): Boolean {
     return head == null

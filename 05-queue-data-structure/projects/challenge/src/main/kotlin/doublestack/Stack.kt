@@ -29,74 +29,60 @@
  */
 package doublestack
 
-/**
- * The Stack interface.
- */
-interface Stack<Element> {
+interface Stack<T : Any> {
+  fun push(element: T)
 
-  /**
-   * Push of an Element into the stack.Stack
-   */
-  fun push(element: Element)
+  fun pop(): T?
 
-  /**
-   * Pops an element from the stack.Stack if any or returns null.
-   */
-  fun pop(): Element?
+  fun peek(): T?
 
   val count: Int
     get
-
-  fun peek(): Element?
 
   val isEmpty: Boolean
     get() = count == 0
 }
 
-/**
- * Simple stack.Stack implementation using an ArrayList
- */
-class StackImpl<Element> : Stack<Element> {
+class StackImpl<T : Any> : Stack<T> {
+  private val storage = arrayListOf<T>()
 
-  private val storage = arrayListOf<Element>()
-
-  companion object {
-    fun <Element> create(items: Iterable<Element>): Stack<Element> {
-      val stack = StackImpl<Element>()
-      for (item in items) {
-        stack.push(item)
-      }
-      return stack
+  override fun toString() = buildString {
+    appendLine("----top----")
+    storage.asReversed().forEach {
+      appendLine("$it")
     }
+    appendLine("-----------")
   }
 
-  override fun push(element: Element) {
+  override fun push(element: T) {
     storage.add(element)
   }
 
-  override fun pop(): Element? {
+  override fun pop(): T? {
     if (isEmpty) {
       return null
     }
     return storage.removeAt(count - 1)
   }
 
-  override fun peek(): Element? {
+  override fun peek(): T? {
     return storage.lastOrNull()
   }
 
   override val count: Int
     get() = storage.size
 
-  override fun toString() = buildString {
-    appendln("----top----")
-    storage.asReversed().forEach {
-      appendln("$it")
+  companion object {
+    fun <T : Any> create(items: Iterable<T>): Stack<T> {
+      val stack = StackImpl<T>()
+      for (item in items) {
+        stack.push(item)
+      }
+      return stack
     }
-    appendln("-----------")
   }
 }
 
-fun <Element> stackOf(vararg elements: Element): Stack<Element> {
+fun <T : Any> stackOf(vararg elements: T): Stack<T> {
   return StackImpl.create(elements.asList())
 }

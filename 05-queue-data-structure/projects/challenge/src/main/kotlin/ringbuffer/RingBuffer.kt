@@ -30,7 +30,7 @@
 
 package ringbuffer
 
-class RingBuffer<T>(private val size: Int) {
+class RingBuffer<T : Any>(private val size: Int) {
 
   private var array = ArrayList<T?>(size)
   private var readIndex = 0
