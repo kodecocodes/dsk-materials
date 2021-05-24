@@ -32,8 +32,8 @@ package ringbuffer
 
 import base.Queue
 
-class RingBufferQueue<T>(size: Int) : Queue<T> {
 
+class RingBufferQueue<T : Any>(size: Int) : Queue<T> {
   private val ringBuffer: RingBuffer<T> = RingBuffer(size)
 
   override val count: Int
@@ -45,7 +45,7 @@ class RingBufferQueue<T>(size: Int) : Queue<T> {
     ringBuffer.write(element)
 
   override fun dequeue(): T? =
-    if (ringBuffer.isEmpty) null else ringBuffer.read()
+    if (isEmpty) null else ringBuffer.read()
 
   override fun toString(): String = ringBuffer.toString()
 }

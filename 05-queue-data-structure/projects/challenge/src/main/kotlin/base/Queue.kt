@@ -30,7 +30,7 @@
 
 package base
 
-interface Queue<T> {
+interface Queue<T : Any> {
 
   fun enqueue(element: T): Boolean
 

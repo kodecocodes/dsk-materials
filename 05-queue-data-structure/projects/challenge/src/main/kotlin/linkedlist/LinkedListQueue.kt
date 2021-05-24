@@ -32,8 +32,7 @@ package linkedlist
 
 import base.Queue
 
-class LinkedListQueue<T> : Queue<T> {
-
+class LinkedListQueue<T : Any> : Queue<T> {
   private val list = DoublyLinkedList<T>()
 
   private var size = 0
@@ -55,7 +54,5 @@ class LinkedListQueue<T> : Queue<T> {
 
   override fun peek(): T? = list.first?.value
 
-  override fun toString(): String {
-    return list.toString()
-  }
+  override fun toString(): String = list.toString()
 }

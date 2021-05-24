@@ -40,7 +40,7 @@ import base.Queue
     A great option is to create an extension function for `Queue` that always returns the next player
  */
 
-fun <T> Queue<T>.nextPlayer(): T? {
+fun <T : Any> Queue<T>.nextPlayer(): T? {
   val person = this.dequeue() ?: return null
   this.enqueue(person)
   return person

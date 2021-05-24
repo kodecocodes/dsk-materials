@@ -41,7 +41,7 @@ import doublestack.StackImpl
     Hint: The `Stack` data structure has been included in the project.
  */
 
-fun <T> Queue<T>.reverse() {
+fun <T : Any> Queue<T>.reverse() {
   val aux = StackImpl<T>()
   var next = this.dequeue()
   while (next != null) {

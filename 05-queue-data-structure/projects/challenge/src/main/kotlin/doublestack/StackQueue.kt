@@ -32,8 +32,7 @@ package doublestack
 
 import base.Queue
 
-class StackQueue<T> : Queue<T> {
-
+class StackQueue<T : Any> : Queue<T> {
   private val leftStack = StackImpl<T>()
   private val rightStack = StackImpl<T>()
 
@@ -42,6 +41,14 @@ class StackQueue<T> : Queue<T> {
 
   override val count: Int
     get() = leftStack.count + rightStack.count
+
+  private fun transferElements() {
+    var nextElement = rightStack.pop()
+    while (nextElement != null) {
+      leftStack.push(nextElement)
+      nextElement = rightStack.pop()
+    }
+  }
 
   override fun peek(): T? {
     if (leftStack.isEmpty) {
@@ -56,21 +63,13 @@ class StackQueue<T> : Queue<T> {
   }
 
   override fun dequeue(): T? {
-    if (leftStack.isEmpty) {
-      transferElements()
+    if (leftStack.isEmpty) { // 1
+      transferElements() // 2
     }
-    return leftStack.pop()
-  }
-
-  private fun transferElements() {
-    var nextElement = rightStack.pop()
-    while (nextElement != null) {
-      leftStack.push(nextElement)
-      nextElement = rightStack.pop()
-    }
+    return leftStack.pop() // 3
   }
 
   override fun toString(): String {
-    return "Left stack:\n$leftStack \nRight stack:\n$rightStack"
+    return "Left stack: \n$leftStack \n Right stack: \n$rightStack"
   }
 }

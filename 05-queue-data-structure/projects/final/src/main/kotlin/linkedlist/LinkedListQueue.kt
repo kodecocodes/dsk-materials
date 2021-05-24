@@ -32,8 +32,7 @@ package linkedlist
 
 import base.Queue
 
-class LinkedListQueue<T> : Queue<T> {
-
+class LinkedListQueue<T : Any> : Queue<T> {
   private val list = DoublyLinkedList<T>()
 
   private var size = 0
