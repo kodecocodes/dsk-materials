@@ -29,47 +29,29 @@
  */
 package stack
 
-import example
-
-/**
- * The Stack interface.
- */
-interface Stack<T> {
-
-  /**
-   * Push of an T into the stack.Stack
-   */
+interface Stack<T : Any> {
   fun push(element: T)
 
-  /**
-   * Pops an element from the stack.Stack if any or returns null.
-   */
   fun pop(): T?
+
+  fun peek(): T?
 
   val count: Int
     get
-
-  fun peek(): T?
 
   val isEmpty: Boolean
     get() = count == 0
 }
 
-/**
- * Simple stack.Stack implementation using an ArrayList
- */
-class StackImpl<T> : Stack<T> {
-
+class StackImpl<T : Any> : Stack<T> {
   private val storage = arrayListOf<T>()
 
-  companion object {
-    fun <T> create(items: Iterable<T>): Stack<T> {
-      val stack = StackImpl<T>()
-      for (item in items) {
-        stack.push(item)
-      }
-      return stack
+  override fun toString() = buildString {
+    appendLine("----top----")
+    storage.asReversed().forEach {
+      appendLine("$it")
     }
+    appendLine("-----------")
   }
 
   override fun push(element: T) {
@@ -90,16 +72,17 @@ class StackImpl<T> : Stack<T> {
   override val count: Int
     get() = storage.size
 
-  override fun toString() = buildString {
-    appendln("----top----")
-    storage.asReversed().forEach {
-      appendln("$it")
+  companion object {
+    fun <T : Any> create(items: Iterable<T>): Stack<T> {
+      val stack = StackImpl<T>()
+      for (item in items) {
+        stack.push(item)
+      }
+      return stack
     }
-    appendln("-----------")
   }
 }
 
-fun <T> stackOf(vararg elements: T): Stack<T> {
+fun <T : Any> stackOf(vararg elements: T): Stack<T> {
   return StackImpl.create(elements.asList())
 }
-

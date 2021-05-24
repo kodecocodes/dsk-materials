@@ -41,7 +41,7 @@ import stack.StackImpl
     You should not use recursion to solve this problem.
  */
 
-fun <T> LinkedList<T>.printInReverse() {
+fun <T : Any> LinkedList<T>.printInReverse() {
   val stack = StackImpl<T>()
 
   for (node in this) {
