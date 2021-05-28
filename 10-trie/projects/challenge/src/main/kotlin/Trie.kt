@@ -47,10 +47,9 @@ class Trie<Key: Any> {
     var current = root
 
     list.forEach { element ->
-      if (current.children[element] == null) {
-        current.children[element] = TrieNode(element, current)
-      }
-      current = current.children[element]!!
+      val child = current.children[element] ?: TrieNode(element, current)
+      current.children[element] = child
+      current = child
     }
 
     current.isTerminating = true
@@ -78,12 +77,12 @@ class Trie<Key: Any> {
 
     if (!current.isTerminating) return
 
-    storedLists.remove(list)
     current.isTerminating = false
 
-    while (current.parent != null && current.children.isEmpty() && !current.isTerminating) {
-      current.parent!!.children.remove(current.key)
-      current = current.parent!!
+    val parent = current.parent
+    while (parent != null && current.children.isEmpty() && !current.isTerminating) {
+      parent.children.remove(current.key)
+      current = parent
     }
   }
 

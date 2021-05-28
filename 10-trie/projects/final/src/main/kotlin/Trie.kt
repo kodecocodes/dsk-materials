@@ -38,10 +38,9 @@ class Trie<Key: Any> {
 
     // 2
     list.forEach { element ->
-      if (current.children[element] == null) {
-        current.children[element] = TrieNode(element, current)
-      }
-      current = current.children[element]!!
+      val child = current.children[element] ?: TrieNode(element, current)
+      current.children[element] = child
+      current = child
     }
 
     // 3
@@ -74,9 +73,10 @@ class Trie<Key: Any> {
     current.isTerminating = false
 
     // 3
-    while (current.parent != null && current.children.isEmpty() && !current.isTerminating) {
-      current.parent!!.children.remove(current.key)
-      current = current.parent!!
+    val parent = current.parent
+    while (parent != null && current.children.isEmpty() && !current.isTerminating) {
+      parent.children.remove(current.key)
+      current = parent
     }
   }
 
