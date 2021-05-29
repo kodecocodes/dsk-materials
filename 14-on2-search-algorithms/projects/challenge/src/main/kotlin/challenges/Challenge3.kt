@@ -32,10 +32,9 @@ package challenges
 
 import swapAt
 
-fun<T: Comparable<T>> MutableList<T>.rev() {
-
+fun <T : Comparable<T>> MutableList<T>.rev() {
   var left = 0
-  var right = this.size - 1
+  var right = this.lastIndex
 
   while (left < right) {
     swapAt(left, right)

@@ -33,18 +33,17 @@ package challenges
 import swapAt
 
 
-fun<T: Comparable<T>> MutableList<T>.rightAlign(element: T) {
+fun <T : Comparable<T>> MutableList<T>.rightAlign(element: T) {
   // 1
-  if(this.size < 2) return
+  if (this.size < 2) return
   // 2
   var searchIndex = this.size - 2
-  while(searchIndex >= 0) {
+  while (searchIndex >= 0) {
     // 3
-    if(this[searchIndex] == element) {
+    if (this[searchIndex] == element) {
       // 4
       var moveIndex = searchIndex
-      while(moveIndex < this.size - 1 &&
-        this[moveIndex + 1] != element) {
+      while (moveIndex < this.size - 1 && this[moveIndex + 1] != element) {
         swapAt(moveIndex, moveIndex + 1)
         moveIndex++
       }

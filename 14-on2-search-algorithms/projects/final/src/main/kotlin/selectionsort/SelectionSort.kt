@@ -34,14 +34,13 @@ import swapAt
 
 
 fun <T : Comparable<T>> MutableList<T>.selectionSort(showPasses: Boolean = false) {
-
   if (this.size < 2) return
   // 1
-  for (current in 0 until (this.size - 1)) {
+  for (current in 0 until this.lastIndex) {
     var lowest = current
     // 2
     for (other in (current + 1) until this.size) {
-      if (this[lowest] > this[other]) {
+      if (this[other] < this[lowest]) {
         lowest = other
       }
     }
@@ -50,6 +49,6 @@ fun <T : Comparable<T>> MutableList<T>.selectionSort(showPasses: Boolean = false
       this.swapAt(lowest, current)
     }
     // 4
-    if(showPasses) println(this)
+    if (showPasses) println(this)
   }
 }

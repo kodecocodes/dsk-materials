@@ -37,7 +37,7 @@ fun <T : Comparable<T>> MutableList<T>.bubbleSort(showPasses: Boolean = false) {
   // 1
   if (this.size < 2) return
   // 2
-  for (end in (1 until this.size).reversed()) {
+  for (end in this.lastIndex downTo 1) {
     var swapped = false
     // 3
     for (current in 0 until end) {

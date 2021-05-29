@@ -37,7 +37,7 @@ fun <T : Comparable<T>> MutableList<T>.insertionSort(showPasses: Boolean = false
   // 1
   for (current in 1 until this.size) {
     // 2
-    for (shifting in (1..current).reversed()) {
+    for (shifting in current downTo 1) {
       // 3
       if (this[shifting] < this[shifting - 1]) {
         this.swapAt(shifting, shifting - 1)
