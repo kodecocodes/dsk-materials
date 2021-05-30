@@ -29,12 +29,25 @@
  */
 
 fun main() {
-  val array = arrayListOf(21, 10, 18, 5, 3, 100, 1)
-  val inverseComparator = Comparator<Int> { o1, o2 ->  // 2
+  val inverseComparator = Comparator<Int> { o1, o2 ->
     o2.compareTo(o1)
   }
-  val minHeap = ComparatorHeapImpl.create(array, inverseComparator)
+
+  // 1
+  val integers = arrayListOf(3, 10, 18, 5, 21, 100)
+  val integersMinHeap = ComparatorHeapImpl.create(integers, inverseComparator)
+  println(integersMinHeap.getNthSmallestT(3))
+
+  // 3
+  val heap = ComparatorHeapImpl.create(arrayListOf(21, 10, 18, 5, 3, 100, 1), inverseComparator)
+  val heap2 = ComparatorHeapImpl.create(arrayListOf(8, 6, 20, 15, 12, 11), inverseComparator)
+  heap.merge(heap2 as AbstractHeap<Int>)
+  println((heap as AbstractHeap).elements)
+
+  // 4
+  val array = arrayListOf(21, 10, 18, 5, 3, 100, 1)
   val maxHeap = ComparableHeapImpl.create(array)
+  val minHeap = ComparatorHeapImpl.create(array, inverseComparator)
   println(minHeap.isMinHeap())
   println(maxHeap.isMinHeap())
 }
