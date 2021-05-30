@@ -48,10 +48,9 @@ fun main() {
   }
 
   "MSD radix sort" example {
-    val list= (0..10).map { (Math.random() * 10000).toInt() }.toMutableList()
+    val list = (0..10).map { (Math.random() * 10000).toInt() }.toMutableList()
     println("Original: $list")
     list.lexicographicalSort()
     println("Radix sorted: $list")
   }
 }
-

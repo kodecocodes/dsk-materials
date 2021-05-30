@@ -37,13 +37,8 @@ fun MutableList<Int>.radixSort() {
   while (!done) {
     done = true
     // 1
-    val buckets = arrayListOf<MutableList<Int>>().apply {
-      for(i in 0..9) {
-        this.add(arrayListOf())
-      }
-    }
-    this.forEach {
-        number ->
+    val buckets = MutableList<MutableList<Int>>(base) { mutableListOf() }
+    this.forEach { number ->
       val remainingPart = number / digits
       val digit = remainingPart % base
       buckets[digit].add(number)
