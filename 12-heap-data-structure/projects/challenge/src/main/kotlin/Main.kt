@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,12 @@
  */
 
 fun main() {
-  val array = arrayListOf(1, 12, 3, 4, 1, 6, 8, 7) // 1
-  val inverseComparator = object : Comparator<Int> { // 2
-    override fun compare(o1: Int, o2: Int): Int = o2.compareTo(o1)
+  val array = arrayListOf(21, 10, 18, 5, 3, 100, 1)
+  val inverseComparator = Comparator<Int> { o1, o2 ->  // 2
+    o2.compareTo(o1)
   }
-  val minHeap = ComparatorHeapImpl.create(array, inverseComparator) // 3
-  while (!minHeap.isEmpty) { // 4
-    println(minHeap.remove())
-  }
+  val minHeap = ComparatorHeapImpl.create(array, inverseComparator)
+  val maxHeap = ComparableHeapImpl.create(array)
+  println(minHeap.isMinHeap())
+  println(maxHeap.isMinHeap())
 }

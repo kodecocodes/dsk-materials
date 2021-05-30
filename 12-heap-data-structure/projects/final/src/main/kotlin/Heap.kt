@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,9 +32,8 @@ import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
 
-interface Collection<T> {
+interface Collection<T: Any> {
   val count: Int
-    get
 
   val isEmpty: Boolean
     get() = count == 0
@@ -47,12 +46,12 @@ interface Collection<T> {
 }
 
 
-interface Heap<T> : Collection<T> {
+interface Heap<T: Any> : Collection<T> {
 
   fun peek(): T?
 }
 
-abstract class AbstractHeap<T>() : Heap<T> {
+abstract class AbstractHeap<T: Any>() : Heap<T> {
   var elements: ArrayList<T> = ArrayList<T>()
 
   override val count: Int
@@ -173,12 +172,12 @@ class ComparableHeapImpl<T : Comparable<T>> :
   override fun compare(a: T, b: T): Int = a.compareTo(b)
 }
 
-class ComparatorHeapImpl<T>(
+class ComparatorHeapImpl<T: Any>(
     private val comparator: Comparator<T>
 ) : AbstractHeap<T>() {
 
   companion object {
-    fun <T> create(
+    fun <T: Any> create(
         elements: ArrayList<T>,
         comparator: Comparator<T>
     ): Heap<T> {
