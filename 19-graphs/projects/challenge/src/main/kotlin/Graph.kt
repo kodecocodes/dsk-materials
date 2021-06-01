@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,4 +28,31 @@
  * THE SOFTWARE.
  */
 
-data class Ref<T>(var value: T)
+interface Graph<T: Any> {
+
+  fun createVertex(data: T): Vertex<T>
+
+  fun addDirectedEdge(source: Vertex<T>, destination: Vertex<T>, weight: Double?)
+
+  fun addUndirectedEdge(source: Vertex<T>, destination: Vertex<T>, weight: Double?) {
+    addDirectedEdge(source, destination, weight)
+    addDirectedEdge(destination, source, weight)
+  }
+
+  fun add(edge: EdgeType, source: Vertex<T>, destination: Vertex<T>, weight: Double?) {
+    when (edge) {
+      EdgeType.DIRECTED -> addDirectedEdge(source, destination, weight)
+      EdgeType.UNDIRECTED -> addUndirectedEdge(source, destination, weight)
+    }
+  }
+
+  fun edges(source: Vertex<T>): ArrayList<Edge<T>>
+
+  fun weight(source: Vertex<T>, destination: Vertex<T>): Double?
+
+}
+
+enum class EdgeType {
+  DIRECTED,
+  UNDIRECTED
+}

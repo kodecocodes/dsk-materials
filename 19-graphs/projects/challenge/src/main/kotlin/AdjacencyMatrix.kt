@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
  * THE SOFTWARE.
  */
 
-class AdjacencyMatrix<T> : Graph<T> {
+class AdjacencyMatrix<T: Any> : Graph<T> {
 
   private val vertices = arrayListOf<Vertex<T>>()
   private val weights = arrayListOf<ArrayList<Double?>>()
@@ -48,9 +48,9 @@ class AdjacencyMatrix<T> : Graph<T> {
   }
 
   override fun addDirectedEdge(
-      source: Vertex<T>,
-      destination: Vertex<T>,
-      weight: Double?
+    source: Vertex<T>,
+    destination: Vertex<T>,
+    weight: Double?
   ) {
     weights[source.index][destination.index] = weight
   }
@@ -67,15 +67,15 @@ class AdjacencyMatrix<T> : Graph<T> {
   }
 
   override fun weight(
-      source: Vertex<T>,
-      destination: Vertex<T>
+    source: Vertex<T>,
+    destination: Vertex<T>
   ): Double? {
     return weights[source.index][destination.index]
   }
 
   override fun toString(): String {
     val verticesDescription = vertices
-        .joinToString(separator = "\n") { "${it.index}: ${it.data}" }
+      .joinToString(separator = "\n") { "${it.index}: ${it.data}" }
 
     val grid = weights.map { row ->
       buildString {

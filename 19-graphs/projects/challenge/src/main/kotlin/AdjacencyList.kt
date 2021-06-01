@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,28 +28,34 @@
  * THE SOFTWARE.
  */
 
-fun main() {
-  val graph = AdjacencyList<String>()
+class AdjacencyList<T: Any> : Graph<T> {
 
-  val vincent = graph.createVertex("vincent")
-  val chesley = graph.createVertex("chesley")
-  val ruiz = graph.createVertex("ruiz")
-  val patrick = graph.createVertex("patrick")
-  val ray = graph.createVertex("ray")
-  val sun = graph.createVertex("sun")
-  val cole = graph.createVertex("cole")
-  val kerry = graph.createVertex("kerry")
+  private val adjacencies: HashMap<Vertex<T>, ArrayList<Edge<T>>> = HashMap()
 
-  graph.add(EdgeType.UNDIRECTED, vincent, chesley, 0.0)
-  graph.add(EdgeType.UNDIRECTED, vincent, ruiz, 0.0)
-  graph.add(EdgeType.UNDIRECTED, vincent, patrick, 0.0)
-  graph.add(EdgeType.UNDIRECTED, ruiz, ray, 0.0)
-  graph.add(EdgeType.UNDIRECTED, ruiz, sun, 0.0)
-  graph.add(EdgeType.UNDIRECTED, patrick, cole, 0.0)
-  graph.add(EdgeType.UNDIRECTED, patrick, kerry, 0.0)
-  graph.add(EdgeType.UNDIRECTED, cole, ruiz, 0.0)
-  graph.add(EdgeType.UNDIRECTED, cole, vincent, 0.0)
+  override fun createVertex(data: T): Vertex<T> {
+    val vertex = Vertex(adjacencies.count(), data)
+    adjacencies[vertex] = ArrayList()
+    return vertex
+  }
 
-  println(graph)
-  println("Ruiz and Vincent both share a friend name Cole")
+  override fun addDirectedEdge(source: Vertex<T>, destination: Vertex<T>, weight: Double?) {
+    val edge = Edge(source, destination, weight)
+    adjacencies[source]?.add(edge)
+  }
+
+  override fun edges(source: Vertex<T>) = adjacencies[source] ?: arrayListOf()
+
+  override fun weight(source: Vertex<T>, destination: Vertex<T>): Double? {
+    return edges(source).firstOrNull { it.destination == destination }?.weight
+  }
+
+  override fun toString(): String {
+    return buildString {
+      adjacencies.forEach { (vertex, edges) ->
+        val edgeString = edges.joinToString { it.destination.data.toString() }
+        append("${vertex.data} ---> [ $edgeString ]\n")
+      }
+    }
+  }
+
 }
