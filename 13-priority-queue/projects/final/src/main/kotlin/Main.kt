@@ -41,15 +41,13 @@ fun main() {
   }
 
   "min priority queue" example {
-    val stringLengthComparator = object : Comparator<String> {
-      override fun compare(o1: String?, o2: String?): Int {
-        val length1 = o1?.length ?: -1
-        val length2 = o2?.length ?: -1
-        return length1 - length2
-      }
+    val stringLengthComparator = Comparator<String> { o1, o2 ->
+      val length1 = o1?.length ?: -1
+      val length2 = o2?.length ?: -1
+      length1 - length2
     }
     val priorityQueue = ComparatorPriorityQueueImpl(stringLengthComparator)
-    arrayListOf("one", "two", "three", "forty", "five", "six", "seven", "eight", "nine").forEach {
+    arrayListOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine").forEach {
       priorityQueue.enqueue(it)
     }
     while (!priorityQueue.isEmpty) {
