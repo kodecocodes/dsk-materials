@@ -51,8 +51,6 @@ interface Heap<T> : Collection<T> {
 
   fun peek(): T?
 
-  fun getNthSmallestT(n: T): T?
-
   fun merge(heap: AbstractHeap<T>)
 
   fun isMinHeap(): Boolean
@@ -64,7 +62,7 @@ abstract class AbstractHeap<T>() : Heap<T> {
   override val count: Int
     get() = elements.size
 
-  override fun peek(): T? = elements.first()
+  override fun peek(): T? = elements.firstOrNull()
 
   override fun insert(element: T) {
     elements.add(element) // 1
@@ -161,18 +159,6 @@ abstract class AbstractHeap<T>() : Heap<T> {
   private fun parentIndex(index: Int) = (index - 1) / 2
 
   abstract fun compare(a: T, b: T): Int
-
-  override fun getNthSmallestT(n: T): T? {
-    var current = 1 // 1
-    while (!isEmpty) { // 2
-      val element = remove() // 3
-      if (current == n) { // 4
-        return element
-      }
-      current += 1 // 5
-    }
-    return null // 6
-  }
 
   override fun merge(heap: AbstractHeap<T>) {
     elements.addAll(heap.elements)

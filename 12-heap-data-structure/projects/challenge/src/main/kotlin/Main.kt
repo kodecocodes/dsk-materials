@@ -28,21 +28,25 @@
  * THE SOFTWARE.
  */
 
+val inverseComparator = Comparator<Int> { o1, o2 ->
+  o2.compareTo(o1)
+}
+
 fun main() {
-  val inverseComparator = Comparator<Int> { o1, o2 ->
-    o2.compareTo(o1)
-  }
 
   // 1
   val integers = arrayListOf(3, 10, 18, 5, 21, 100)
-  val integersMinHeap = ComparatorHeapImpl.create(integers, inverseComparator)
-  println(integersMinHeap.getNthSmallestT(3))
+  println(getNthSmallestElement(3, integers))
 
   // 3
   val heap = ComparatorHeapImpl.create(arrayListOf(21, 10, 18, 5, 3, 100, 1), inverseComparator)
   val heap2 = ComparatorHeapImpl.create(arrayListOf(8, 6, 20, 15, 12, 11), inverseComparator)
   heap.merge(heap2 as AbstractHeap<Int>)
-  println((heap as AbstractHeap).elements)
+  while(!heap.isEmpty){
+    print(" ${heap.remove()} ")
+  }
+
+  println()
 
   // 4
   val array = arrayListOf(21, 10, 18, 5, 3, 100, 1)
@@ -50,4 +54,22 @@ fun main() {
   val minHeap = ComparatorHeapImpl.create(array, inverseComparator)
   println(minHeap.isMinHeap())
   println(maxHeap.isMinHeap())
+}
+
+fun getNthSmallestElement(n: Int, elements: ArrayList<Int>): Int? {
+  if (n <= 0 || elements.isEmpty()) return null
+
+  val heap = ComparableHeapImpl.create(arrayListOf<Int>())
+
+  elements.forEach {
+    val maxElement = heap.peek()
+    if (heap.count < n) {
+      heap.insert(it)
+    } else if (maxElement != null && maxElement > it) {
+      heap.remove()
+      heap.insert(it)
+    }
+  }
+
+  return heap.peek()
 }

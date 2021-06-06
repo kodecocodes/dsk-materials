@@ -57,7 +57,7 @@ abstract class AbstractHeap<T: Any>() : Heap<T> {
   override val count: Int
     get() = elements.size
 
-  override fun peek(): T? = elements.first()
+  override fun peek(): T? = elements.firstOrNull()
 
   override fun insert(element: T) {
     elements.add(element) // 1
