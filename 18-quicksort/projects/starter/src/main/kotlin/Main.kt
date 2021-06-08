@@ -28,7 +28,14 @@
  * THE SOFTWARE.
  */
 
+import quicksort.quicksortNaive
+
 
 fun main() {
+  "Naive quicksort" example  {
+    val list = arrayListOf(12, 0, 3, 9, 2, 18, 8, 27, 1, 5, 8, -1, 21)
+    println("Original: $list")
+    val sorted = list.quicksortNaive()
+    println("Sorted: $sorted")
+  }
 }
-

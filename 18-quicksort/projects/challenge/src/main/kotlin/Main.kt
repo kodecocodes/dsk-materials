@@ -65,7 +65,7 @@ fun main() {
     list.quicksortDutchFlag( 0, list.size - 1)
     println("Sorted: $list")
   }
-  "Iterative lomuto quicksort" example {
+  "Iterative Lomuto quicksort" example {
     val list = arrayListOf(12, 0, 3, 9, 2, 21, 18, 27, 1, 5, 8, -1, 8)
     println("Original: $list")
     list.quicksortIterativeLomuto( 0, list.size - 1)

@@ -30,42 +30,60 @@
 
 package stack
 
-class Stack<T : Any>() {
+interface Stack<T : Any> {
+  fun push(element: T)
 
+  fun pop(): T?
+
+  fun peek(): T?
+
+  val count: Int
+    get
+
+  val isEmpty: Boolean
+    get() = count == 0
+}
+
+class StackImpl<T : Any> : Stack<T> {
   private val storage = arrayListOf<T>()
 
-  constructor(elements: List<T>) : this() {
-    storage.addAll(elements)
-  }
-
   override fun toString() = buildString {
-    appendln("----top----")
+    appendLine("----top----")
     storage.asReversed().forEach {
-      appendln(it.toString())
+      appendLine("$it")
     }
-    appendln("-----------")
+    appendLine("-----------")
   }
 
-  fun push(element: T) {
+  override fun push(element: T) {
     storage.add(element)
   }
 
-  fun pop(): T? {
-    if (storage.size == 0) {
+  override fun pop(): T? {
+    if (isEmpty) {
       return null
     }
-    return storage.removeAt(storage.size - 1)
+    return storage.removeAt(count - 1)
   }
 
-  fun peek(): T? {
+  override fun peek(): T? {
     return storage.lastOrNull()
   }
 
-  val isEmpty: Boolean
-    get() = storage.size == 0
+  override val count: Int
+    get() = storage.size
 
+  companion object {
+    fun <T : Any> create(items: Iterable<T>): Stack<T> {
+      val stack = StackImpl<T>()
+      for (item in items) {
+        stack.push(item)
+      }
+      return stack
+    }
+  }
 }
 
 fun <T : Any> stackOf(vararg elements: T): Stack<T> {
-  return Stack(elements.asList())
+  return StackImpl.create(elements.asList())
 }

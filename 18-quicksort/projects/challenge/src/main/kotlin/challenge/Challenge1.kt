@@ -31,10 +31,10 @@
 package challenge
 
 import quicksort.partitionLomuto
-import stack.Stack
+import stack.stackOf
 
-fun<T: Comparable<T>> MutableList<T>.quicksortIterativeLomuto(low: Int, high: Int) {
-  val stack = Stack<Int>() // 1
+fun <T : Comparable<T>> MutableList<T>.quicksortIterativeLomuto(low: Int, high: Int) {
+  val stack = stackOf<Int>() // 1
   stack.push(low) // 2
   stack.push(high)
 

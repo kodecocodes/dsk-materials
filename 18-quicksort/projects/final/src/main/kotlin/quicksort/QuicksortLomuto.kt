@@ -33,17 +33,18 @@ package quicksort
 import swapAt
 
 
-fun<T: Comparable<T>> MutableList<T>.quicksortLomuto(low: Int, high: Int) {
+fun <T : Comparable<T>> MutableList<T>.quicksortLomuto(low: Int, high: Int) {
   if (low < high) {
     val pivot = this.partitionLomuto(low, high)
-    this.quicksortLomuto( low, pivot - 1)
-    this.quicksortLomuto( pivot + 1, high)
+    this.quicksortLomuto(low, pivot - 1)
+    this.quicksortLomuto(pivot + 1, high)
   }
 }
 
-fun<T: Comparable<T>> MutableList<T>.partitionLomuto(
+fun <T : Comparable<T>> MutableList<T>.partitionLomuto(
   low: Int,
-  high: Int): Int {
+  high: Int
+): Int {
   val pivot = this[high] // 1
 
   var i = low // 2
@@ -52,7 +53,6 @@ fun<T: Comparable<T>> MutableList<T>.partitionLomuto(
       this.swapAt(i, j) // 5
       i += 1
     }
-    this.subList(low, i)
   }
   this.swapAt(i, high) // 6
   return i // 7

@@ -32,7 +32,7 @@ package quicksort
 
 import swapAt
 
-fun<T: Comparable<T>> MutableList<T>.quicksortDutchFlag(low: Int, high: Int) {
+fun <T : Comparable<T>> MutableList<T>.quicksortDutchFlag(low: Int, high: Int) {
   if (low < high) {
     val middle = partitionDutchFlag(low, high, high)
     this.quicksortDutchFlag(low, middle.first - 1)
@@ -40,7 +40,11 @@ fun<T: Comparable<T>> MutableList<T>.quicksortDutchFlag(low: Int, high: Int) {
   }
 }
 
-fun<T: Comparable<T>> MutableList<T>.partitionDutchFlag(low: Int, high: Int, pivotIndex: Int): Pair<Int, Int> {
+fun <T : Comparable<T>> MutableList<T>.partitionDutchFlag(
+  low: Int,
+  high: Int,
+  pivotIndex: Int
+): Pair<Int, Int> {
   val pivot = this[pivotIndex]
   var smaller = low // 1
   var equal = low // 2

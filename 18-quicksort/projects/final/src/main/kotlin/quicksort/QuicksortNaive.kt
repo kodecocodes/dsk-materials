@@ -30,8 +30,8 @@
 
 package quicksort
 
-fun<T: Comparable<T>> List<T>.quicksortNaive(): List<T> {
-  if (this.size < 2) return this
+fun <T : Comparable<T>> List<T>.quicksortNaive(): List<T> {
+  if (this.size < 2) return this // 1
 
   val pivot = this[this.size / 2] // 2
   val less = this.filter { it < pivot } // 3
