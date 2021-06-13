@@ -32,7 +32,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class Dijkstra<T : Any>(private val graph: AdjacencyList<T>) {
+class Dijkstra<T: Any>(private val graph: AdjacencyList<T>) {
 
   private fun route(
     destination: Vertex<T>,
@@ -100,7 +100,7 @@ class Dijkstra<T : Any>(private val graph: AdjacencyList<T>) {
 
 }
 
-class Visit<T : Any>(val type: VisitType, val edge: Edge<T>? = null)
+class Visit<T: Any>(val type: VisitType, val edge: Edge<T>? = null)
 
 enum class VisitType {
 
