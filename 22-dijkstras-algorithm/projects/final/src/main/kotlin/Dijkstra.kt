@@ -1,7 +1,3 @@
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-
 /*
  * Copyright (c) 2021 Razeware LLC
  *
@@ -32,9 +28,16 @@ import kotlin.collections.HashMap
  * THE SOFTWARE.
  */
 
-class Dijkstra<T: Any>(private val graph: AdjacencyList<T>) {
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
-  private fun route(destination: Vertex<T>, paths: HashMap<Vertex<T>, Visit<T>>): ArrayList<Edge<T>> {
+class Dijkstra<T : Any>(private val graph: AdjacencyList<T>) {
+
+  private fun route(
+    destination: Vertex<T>,
+    paths: HashMap<Vertex<T>, Visit<T>>
+  ): ArrayList<Edge<T>> {
     var vertex = destination
     val path = arrayListOf<Edge<T>>()
 
@@ -68,7 +71,7 @@ class Dijkstra<T: Any>(private val graph: AdjacencyList<T>) {
 
     val priorityQueue = ComparatorPriorityQueueImpl(distanceComparator)
     priorityQueue.enqueue(start)
-    
+
     while (true) {
       val vertex = priorityQueue.dequeue() ?: break
       val edges = graph.edges(vertex)
@@ -77,7 +80,8 @@ class Dijkstra<T: Any>(private val graph: AdjacencyList<T>) {
         val weight = it.weight ?: return@forEach
 
         if (paths[it.destination] == null
-          || distance(vertex, paths) + weight < distance(it.destination, paths)) {
+          || distance(vertex, paths) + weight < distance(it.destination, paths)
+        ) {
           paths[it.destination] = Visit(VisitType.EDGE, it)
           priorityQueue.enqueue(it.destination)
         }
@@ -87,13 +91,16 @@ class Dijkstra<T: Any>(private val graph: AdjacencyList<T>) {
     return paths
   }
 
-  fun shortestPath(destination: Vertex<T>, paths: HashMap<Vertex<T>, Visit<T>>): ArrayList<Edge<T>> {
+  fun shortestPath(
+    destination: Vertex<T>,
+    paths: HashMap<Vertex<T>, Visit<T>>
+  ): ArrayList<Edge<T>> {
     return route(destination, paths)
   }
 
 }
 
-class Visit<T: Any>(val type: VisitType, val edge: Edge<T>? = null)
+class Visit<T : Any>(val type: VisitType, val edge: Edge<T>? = null)
 
 enum class VisitType {
 
