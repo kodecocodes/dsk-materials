@@ -1,7 +1,3 @@
-import java.util.*
-import kotlin.Comparator
-import kotlin.math.roundToInt
-
 /*
  * Copyright (c) 2021 Razeware LLC
  *
@@ -31,6 +27,10 @@ import kotlin.math.roundToInt
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+import java.util.*
+import kotlin.Comparator
+import kotlin.math.roundToInt
 
 object Prim {
 
