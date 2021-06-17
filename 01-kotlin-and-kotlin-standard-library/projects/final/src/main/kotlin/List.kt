@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,14 @@
  */
 
 fun main() {
-    val name = "Bill Clinton"
-    var country = "Romania"
+    val places = listOf("Paris", "London", "Bucharest")
 
-    //name = "Matei Suica" // compile error
-    country = "Pakistan" // Ok
+    places[0] // Paris
+    places[1] // London
+    places[2] // Bucharest
 
-    var score: Int
+    val mutablePlaces = mutableListOf("Paris", "London", "Bucharest")
 
+    mutablePlaces.add("Budapest")
+    println(mutablePlaces) // prints [Paris, London, Bucharest, Budapest]
 }

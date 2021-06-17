@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,20 @@
  * THE SOFTWARE.
  */
 
+data class Car(val name: String, var doors: Int = 4) {
+    fun drive() {}
+}
+
 fun main() {
-    val places = listOf("Paris", "London", "Bucharest")
+    var car: Car? = null
 
-    val mutablePlaces = mutableListOf("Paris", "London", "Bucharest")
+    car = Car("Mercedes-Benz")
 
-    mutablePlaces.add("Budapest")
-    println(mutablePlaces) // prints [Paris, London, Bucharest, Budapest]
+    car.drive()
+
+    car?.drive()
+
+    val realCar: Car = car ?: Car("Porsche")
+
+    car!!.drive()
 }

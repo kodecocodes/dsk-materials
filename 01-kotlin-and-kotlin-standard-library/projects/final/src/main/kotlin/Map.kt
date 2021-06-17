@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,23 @@
  * THE SOFTWARE.
  */
 
-fun max(a: Int, b: Int): Int {
-    return if (a > b) a else b
+fun noSideEffectList(names: List<String>) {
+    println(names)
 }
 
-fun printMax(c: Int, d: Int) {
-    val maxValue = max(c, d)
-    println(maxValue)
+fun sideEffectList(names: MutableList<String>) {
+    names.add("Joker")
+}
+
+fun mutableVsReadOnly() {
+    val people = mutableListOf("Brian", "Stanley", "Ringo")
+    noSideEffectList(people) // [Brian, Stanley, Ringo]
+    sideEffectList(people)   // Adds a Joker to the list
+    noSideEffectList(people) // [Brian, Stanley, Ringo, Joker]
+}
+
+fun main() {
+    val scores = mutableMapOf("Eric" to 9, "Mark" to 12, "Wayne" to 1)
+
+    scores["Andrew"] = 0
 }

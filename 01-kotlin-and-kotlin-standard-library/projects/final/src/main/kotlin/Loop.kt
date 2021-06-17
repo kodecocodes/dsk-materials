@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,27 +30,29 @@
 
 
 fun main() {
-    val a = 5
-    val b = 12
-    var max = -1
-
-    if (a > b) {
-        max = a
-    } else {
-        max = b
+    for (i in 1..3) {
+        println(i)
     }
 
-    println(max) // prints 12
+    val collection = arrayOf(1, 2, 3)
+    for (item in collection) println(item)
 
 
-    val groupSize = 3
-    when (groupSize) {
-        1 -> println("Single")
-        2 -> println("Pair")
-        3 -> { // Note the block
-            println("Trio")
-        }
-        else -> println("This is either nobody or a big crowd")
+    var x = 10
+    while (x > 0) {
+        x--
     }
 
+
+    x = 10
+    do {
+        x--
+    } while (x > 0)
+
+
+    x = 10
+    while (x > 0) {
+        x++
+    }
+    println("The light at the end of the tunnel!")
 }
