@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,70 +28,34 @@
  * THE SOFTWARE.
  */
 
-class AdjacencyMatrix<T> : Graph<T> {
+class AdjacencyList<T: Any> : Graph<T> {
 
-  private val vertices = arrayListOf<Vertex<T>>()
-  private val weights = arrayListOf<ArrayList<Double?>>()
+  private val adjacencies: HashMap<Vertex<T>, ArrayList<Edge<T>>> = HashMap()
 
   override fun createVertex(data: T): Vertex<T> {
-    val vertex = Vertex(vertices.count(), data)
-    vertices.add(vertex)
-    weights.forEach {
-      it.add(null)
-    }
-    val row = ArrayList<Double?>(vertices.count())
-    repeat(vertices.count()) {
-      row.add(null)
-    }
-    weights.add(row)
+    val vertex = Vertex(adjacencies.count(), data)
+    adjacencies[vertex] = ArrayList()
     return vertex
   }
 
-  override fun addDirectedEdge(
-    source: Vertex<T>,
-    destination: Vertex<T>,
-    weight: Double?
-  ) {
-    weights[source.index][destination.index] = weight
+  override fun addDirectedEdge(source: Vertex<T>, destination: Vertex<T>, weight: Double?) {
+    val edge = Edge(source, destination, weight)
+    adjacencies[source]?.add(edge)
   }
 
-  override fun edges(source: Vertex<T>): ArrayList<Edge<T>> {
-    val edges = arrayListOf<Edge<T>>()
-    (0 until weights.size).forEach { column ->
-      val weight = weights[source.index][column]
-      if (weight != null) {
-        edges.add(Edge(source, vertices[column], weight))
-      }
-    }
-    return edges
-  }
+  override fun edges(source: Vertex<T>) = adjacencies[source] ?: arrayListOf()
 
-  override fun weight(
-    source: Vertex<T>,
-    destination: Vertex<T>
-  ): Double? {
-    return weights[source.index][destination.index]
+  override fun weight(source: Vertex<T>, destination: Vertex<T>): Double? {
+    return edges(source).firstOrNull { it.destination == destination }?.weight
   }
 
   override fun toString(): String {
-    val verticesDescription = vertices
-      .joinToString(separator = "\n") { "${it.index}: ${it.data}" }
-
-    val grid = weights.map { row ->
-      buildString {
-        (0 until weights.size).forEach { columnIndex ->
-          val value = row[columnIndex]
-          if (value != null) {
-            append("$value\t")
-          } else {
-            append("ø\t\t")
-          }
-        }
+    return buildString {
+      adjacencies.forEach { (vertex, edges) ->
+        val edgeString = edges.joinToString { it.destination.data.toString() }
+        append("${vertex.data} ---> [ $edgeString ]\n")
       }
     }
-
-    val edgesDescription = grid.joinToString("\n")
-    return "$verticesDescription\n\n$edgesDescription"
   }
 
 }
