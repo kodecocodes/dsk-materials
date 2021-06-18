@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,5 +28,48 @@
  * THE SOFTWARE.
  */
 
+val inverseComparator = Comparator<Int> { o1, o2 ->
+  o2.compareTo(o1)
+}
+
 fun main() {
+
+  // 1
+  val integers = arrayListOf(3, 10, 18, 5, 21, 100)
+  println(getNthSmallestElement(3, integers))
+
+  // 3
+  val heap = ComparatorHeapImpl.create(arrayListOf(21, 10, 18, 5, 3, 100, 1), inverseComparator)
+  val heap2 = ComparatorHeapImpl.create(arrayListOf(8, 6, 20, 15, 12, 11), inverseComparator)
+  heap.merge(heap2 as AbstractHeap<Int>)
+  while(!heap.isEmpty){
+    print(" ${heap.remove()} ")
+  }
+
+  println()
+
+  // 4
+  val array = arrayListOf(21, 10, 18, 5, 3, 100, 1)
+  val maxHeap = ComparableHeapImpl.create(array)
+  val minHeap = ComparatorHeapImpl.create(array, inverseComparator)
+  println(minHeap.isMinHeap())
+  println(maxHeap.isMinHeap())
+}
+
+fun getNthSmallestElement(n: Int, elements: ArrayList<Int>): Int? {
+  if (n <= 0 || elements.isEmpty()) return null
+
+  val heap = ComparableHeapImpl.create(arrayListOf<Int>())
+
+  elements.forEach {
+    val maxElement = heap.peek()
+    if (heap.count < n) {
+      heap.insert(it)
+    } else if (maxElement != null && maxElement > it) {
+      heap.remove()
+      heap.insert(it)
+    }
+  }
+
+  return heap.peek()
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Razeware LLC
+ * Copyright (c) 2021 Razeware LLC
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,10 @@ interface Collection<T> {
 interface Heap<T> : Collection<T> {
 
   fun peek(): T?
+
+  fun merge(heap: AbstractHeap<T>)
+
+  fun isMinHeap(): Boolean
 }
 
 abstract class AbstractHeap<T>() : Heap<T> {
@@ -58,7 +62,7 @@ abstract class AbstractHeap<T>() : Heap<T> {
   override val count: Int
     get() = elements.size
 
-  override fun peek(): T? = elements.first()
+  override fun peek(): T? = elements.firstOrNull()
 
   override fun insert(element: T) {
     elements.add(element) // 1
@@ -155,14 +159,45 @@ abstract class AbstractHeap<T>() : Heap<T> {
   private fun parentIndex(index: Int) = (index - 1) / 2
 
   abstract fun compare(a: T, b: T): Int
+
+  override fun merge(heap: AbstractHeap<T>) {
+    elements.addAll(heap.elements)
+    buildHeap()
+  }
+
+  private fun buildHeap() {
+    if (!elements.isEmpty()) {
+      (count / 2 downTo 0).forEach {
+        siftDown(it)
+      }
+    }
+  }
+
+  override fun isMinHeap(): Boolean {
+    if (isEmpty) return true // 1
+    (count / 2 - 1 downTo 0).forEach {
+      // 2
+      val left = leftChildIndex(it) // 3
+      val right = rightChildIndex(it)
+      if (left < count &&
+        compare(elements[left], elements[it]) < 0) { // 4
+        return false
+      }
+      if (right < count
+        && compare(elements[right], elements[it]) < 0) { // 5
+        return false
+      }
+    }
+    return true // 6
+  }
 }
 
 class ComparableHeapImpl<T : Comparable<T>> :
-    AbstractHeap<T>() {
+  AbstractHeap<T>() {
 
   companion object {
     fun <T : Comparable<T>> create(
-        elements: ArrayList<T>
+      elements: ArrayList<T>
     ): Heap<T> {
       val heap = ComparableHeapImpl<T>()
       heap.heapify(elements)
@@ -174,13 +209,13 @@ class ComparableHeapImpl<T : Comparable<T>> :
 }
 
 class ComparatorHeapImpl<T>(
-    private val comparator: Comparator<T>
+  private val comparator: Comparator<T>
 ) : AbstractHeap<T>() {
 
   companion object {
     fun <T> create(
-        elements: ArrayList<T>,
-        comparator: Comparator<T>
+      elements: ArrayList<T>,
+      comparator: Comparator<T>
     ): Heap<T> {
       val heap = ComparatorHeapImpl(comparator)
       heap.heapify(elements)
@@ -189,5 +224,5 @@ class ComparatorHeapImpl<T>(
   }
 
   override fun compare(a: T, b: T): Int =
-      comparator.compare(a, b)
+    comparator.compare(a, b)
 }
