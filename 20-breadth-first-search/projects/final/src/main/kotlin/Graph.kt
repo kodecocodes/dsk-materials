@@ -56,7 +56,7 @@ interface Graph<T: Any> {
 
   fun breadthFirstSearch(source: Vertex<T>): ArrayList<Vertex<T>> {
     val queue = QueueStack<Vertex<T>>()
-    val enqueued = ArrayList<Vertex<T>>()
+    val enqueued = mutableSetOf<Vertex<T>>()
     val visited = ArrayList<Vertex<T>>()
     queue.enqueue(source) // 1
     enqueued.add(source)

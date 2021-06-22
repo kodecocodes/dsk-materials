@@ -75,7 +75,7 @@ interface Graph<T: Any> {
 
   fun breadthFirstSearch(source: Vertex<T>): ArrayList<Vertex<T>> {
     val queue = QueueStack<Vertex<T>>()
-    val enqueued = ArrayList<Vertex<T>>()
+    val enqueued = mutableSetOf<Vertex<T>>()
     val visited = ArrayList<Vertex<T>>()
 
     queue.enqueue(source)
@@ -101,7 +101,7 @@ interface Graph<T: Any> {
   // Solution 2
   fun bfs(source: Vertex<T>): ArrayList<Vertex<T>> {
     val queue = QueueStack<Vertex<T>>()
-    val enqueued = arrayListOf<Vertex<T>>()
+    val enqueued = mutableSetOf<Vertex<T>>()
     val visited = arrayListOf<Vertex<T>>()
 
     queue.enqueue(source)
@@ -112,7 +112,7 @@ interface Graph<T: Any> {
     return visited
   }
 
-  private fun bfs(queue: QueueStack<Vertex<T>>, enqueued: ArrayList<Vertex<T>>, visited: ArrayList<Vertex<T>>) {
+  private fun bfs(queue: QueueStack<Vertex<T>>, enqueued: MutableSet<Vertex<T>>, visited: ArrayList<Vertex<T>>) {
     val vertex = queue.dequeue() ?: return
 
     visited.add(vertex)
