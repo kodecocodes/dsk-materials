@@ -82,7 +82,7 @@ class DoublyLinkedList<T : Any> {
     val next = node.next
 
     if (prev != null) {
-      prev.next = node.previous
+      prev.next = next
     } else {
       head = next
     }
